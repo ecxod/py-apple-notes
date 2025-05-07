@@ -1,0 +1,16 @@
+on:
+  push:
+    branches: [ master ]
+jobs:
+  notif-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: push_info_step
+        uses: processone/xmpp-notifier@master
+        with:
+          jid: ${{ secrets.jid }}
+          password: ${{ secrets.password }}
+          server_host: ${{ secrets.server_host }}
+          recipient: ${{ secrets.recipient }}
+          message: ${{ github.actor }} pushed to master
+          recipient_is_room: true
