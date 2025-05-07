@@ -1,20 +1,17 @@
+name: XMPP Notification
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
-  notif-script:
+  notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '^1.16' # or the specific version required
-      - name: push_info_step
+      - name: Send XMPP Notification
         uses: processone/xmpp-notifier@master
         with:
-          jid: ${{ secrets.jid }}
-          password: ${{ secrets.password }}
-          server_host: ${{ secrets.server_host }}
-          recipient: ${{ secrets.recipient }}
-          message: ${{ github.actor }} pushed to master
+          jid: ${{ secrets.JID }}
+          password: ${{ secrets.PASSWORD }}
+          server_host: ${{ secrets.SERVER_HOST }}
+          recipient: ${{ secrets.RECIPIENT }}
+          message: "${{ github.actor }} pushed to ${{ github.repository }}"
           recipient_is_room: true
